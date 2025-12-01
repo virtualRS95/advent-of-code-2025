@@ -1,0 +1,8 @@
+Case 1)
+5   -15 = -10 -> +90                            (1 zero pass) floors: 0, -1
+95  +15 = 110 -> 10; (100-10=90 real number)    (1 zero pass) floors: 0, 1
+
+Case 2)
+10-10   = 0   -> 0                              (1 zero hit)  floors:  0, 0?!
+90+10   = 100 -> 0   (100-0=100 real number)    (1 zero hit)  floors:  0, 1
+in this case, must take modulus of the inverted number
