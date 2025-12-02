@@ -1,0 +1,9 @@
+Case 1) works as intended
+default:  5   -15 = -10 -> +90                            floors: 0, -1 (1 zero pass) 
+inverted: 95  +15 = 110 -> 10; (100-10=90 real number)    floors: 0, 1 (1 zero pass)
+
+Case 2) floor division on negative dial rotation does not show hitting 0
+default:  10  -10 = 0   -> 0                              floors:  0, 0?! (1 zero hit, but 0 difference in hundreds)  
+inverted: 90  +10 = 100 -> 0   (100-0=100 real number)    floors:  0, 1   (1 zero hit) 
+
+Case 2 only functions properly by inverting the number line and using addition.
