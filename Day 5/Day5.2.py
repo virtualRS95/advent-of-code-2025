@@ -3,6 +3,7 @@ from time import perf_counter
 # load test and task files
 test_input_file = "debug_file_2.txt"
 task_input_file = "input.txt"
+big_input_file = "KtGx.txt"
 # Define font formatting codes for easy use
 RED = '\033[31m'
 GREEN = '\033[32m'
@@ -16,7 +17,8 @@ t0 = perf_counter()
 def get_fresh_ids(input_file):
     with open(input_file, 'r') as ifp:
         data = ifp.read().splitlines()
-    
+    t00 = perf_counter()
+
     # check if this file is a test, which includes expected results
     test_results = []
     while "result" in data[-1]:
@@ -30,7 +32,7 @@ def get_fresh_ids(input_file):
     for i in range(len(fresh)):
         a, b = fresh[i].split('-')
         fresh[i] = (int(a), int(b))
-    ingredients = list(set([int(x) for x in data[split_idx+1:]])) # make unique int list
+    ingredients = [int(x) for x in data[split_idx+1:]] # make unique int list
     t2 = perf_counter()
 
     # sort the lists ascending and merge overlaps
@@ -48,6 +50,7 @@ def get_fresh_ids(input_file):
         else:
             merged.append((curr_start, curr_end))
     t4 = perf_counter()
+    print(f"time spent up to t4: {t4-t00}")
 
     # count the numer of valid IDs in the merged ranges
     num_fresh_ids = 0
@@ -58,7 +61,10 @@ def get_fresh_ids(input_file):
     fresh_ingredients = 0
     skip_ranges = 0
     for iid in ingredients:
-        for num_range in merged[skip_ranges:]:
+        for i in range(skip_ranges, len(merged)):#[skip_ranges:]:
+            num_range = merged[i]
+            if iid < num_range[0]:
+                break
             if num_range[0] <= iid <= num_range[1]:
                 fresh_ingredients += 1
                 break
@@ -88,6 +94,7 @@ def get_fresh_ids(input_file):
 
 get_fresh_ids(test_input_file)
 get_fresh_ids(task_input_file)
+get_fresh_ids(big_input_file)
 
 t6 = perf_counter()
 print(f"Total execution time: {(t6-t0)*1000:3f} ms.")
