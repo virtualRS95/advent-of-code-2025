@@ -105,5 +105,6 @@ def open_testcase(file_name, num_connections):
             break
     print(i2)
 
-open_testcase(debug_input_file, 10)
+#open_testcase(debug_input_file, 10)
 open_testcase(task_input_file, 1000)
+open_testcase(test_input_file, 1000)
